@@ -32,7 +32,7 @@ public class CertFetcher {
     public static X509Certificate[] getFromDomain(String domainName) throws IOException {
         // Disable all cert check, just download it
         try {
-            SSLContext sc = SSLContext.getInstance("SSL");
+            SSLContext sc = SSLContext.getInstance("TLS");
             sc.init(null, trustManagers, new java.security.SecureRandom());
             HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory());
         } catch (NoSuchAlgorithmException | KeyManagementException e) {
@@ -40,6 +40,8 @@ public class CertFetcher {
         }
         URL url = new URL("https://" + domainName);
         final HttpsURLConnection conn = (HttpsURLConnection) url.openConnection();
+        conn.setConnectTimeout(5000);
+        conn.setReadTimeout(5000);
         conn.connect();
         final Certificate[] certs = conn.getServerCertificates();
         return (X509Certificate[]) certs;
