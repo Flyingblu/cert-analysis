@@ -55,7 +55,7 @@ public class FetchCertTask implements Runnable {
             }
 
             try {
-                final X509Certificate[] certs = CertFetcher.getFromDomain(domain);
+                final X509Certificate[] certs = CertUtil.getCertChainFromDomain(domain);
 
                 synchronized (conn) {
                     for (int i = 0; i < certs.length; ++i) {

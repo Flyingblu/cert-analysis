@@ -30,24 +30,10 @@ public class AnalyzeCert {
         final CertificateFactory certFactory = CertificateFactory.getInstance("X.509");
         try (final Connection conn = DriverManager.getConnection("jdbc:sqlite:" + DB_PATH);
              final ProgressBar pb = new ProgressBarBuilder()
-                     .setTaskName("Download")
+                     .setTaskName("Analyze")
                      .setUpdateIntervalMillis(500)
                      .setInitialMax(NUM_FETCH).build()) {
-            String getDerOfDomainSt = "SELECT No, Der FROM Certs WHERE Domain = ?;";
-            final PreparedStatement ps = conn.prepareStatement(getDerOfDomainSt);
-            ps.setString(1, domains.poll());
-            final ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                System.out.println(rs.getInt("No"));
-                final byte[] der = rs.getBytes("Der");
-                try (final ByteArrayInputStream byteInput = new ByteArrayInputStream(der)) {
-                    final X509Certificate certificate = (X509Certificate) certFactory.generateCertificate(byteInput);
-                    System.out.println(certificate.getIssuerDN());
-                }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
+            final var certs = CertUtil.getCertChainFromDB(domains.poll(), conn);
         }
-
     }
 }
