@@ -8,15 +8,11 @@ import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 
 import java.io.ByteArrayInputStream;
-import java.io.FileReader;
 import java.io.IOException;
-import java.io.LineNumberReader;
-import java.security.cert.Certificate;
 import java.security.cert.CertificateException;
 import java.security.cert.CertificateFactory;
 import java.security.cert.X509Certificate;
 import java.sql.*;
-import java.util.ArrayDeque;
 import java.util.Deque;
 
 public class AnalyzeCert {
@@ -29,18 +25,7 @@ public class AnalyzeCert {
         final int NUM_FETCH = Integer.parseInt(cmdLine.getOptionValue("number", "200000"));
         final String DB_PATH = cmdLine.getOptionValue("path", "cert.sqlite");
 
-        final Deque<String> domains = new ArrayDeque<>(NUM_FETCH);
-        try (final FileReader domainFile = new FileReader("top-1m.csv");
-             final LineNumberReader lineReader = new LineNumberReader(domainFile)) {
-            String read = "";
-            for (int i = 0; i < NUM_FETCH && read != null; ++i) {
-                read = lineReader.readLine();
-                final String[] strs = read.split(",");
-                domains.add(strs[1]);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        final Deque<String> domains = Util.readDomainList(NUM_FETCH);
 
         final CertificateFactory certFactory = CertificateFactory.getInstance("X.509");
         try (final Connection conn = DriverManager.getConnection("jdbc:sqlite:" + DB_PATH);
