@@ -75,7 +75,6 @@ public class CertUtil {
         final ResultSet rs = ps.executeQuery();
         final ArrayList<X509Certificate> certs = new ArrayList<>();
         while (rs.next()) {
-            System.out.println(rs.getInt("No"));
             final byte[] der = rs.getBytes("Der");
             try (final ByteArrayInputStream byteInput = new ByteArrayInputStream(der)) {
                 certs.add((X509Certificate) certFactory.generateCertificate(byteInput));
@@ -83,6 +82,7 @@ public class CertUtil {
                 e.printStackTrace();
             }
         }
-        return (X509Certificate[]) certs.toArray();
+        final var ret = new X509Certificate[certs.size()];
+        return certs.toArray(ret);
     }
 }
