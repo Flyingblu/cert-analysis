@@ -22,6 +22,9 @@ import java.util.ArrayList;
 public class CertUtil {
 
     static final String getDerOfDomainSt = "SELECT No, Der FROM Certs WHERE Domain = ?;";
+    static final String getErrOfDomainSt = "SELECT Err FROM CertErrs WHERE domain = ?;";
+    static final String getDomainSt = "SELECT DISTINCT domain FROM Certs;";
+    static final String getDomainNumSt = "SELECT COUNT(DISTINCT domain) FROM Certs;";
     static final CertificateFactory certFactory;
 
     static {
@@ -70,19 +73,44 @@ public class CertUtil {
     }
 
     public static X509Certificate[] getCertChainFromDB(String domainName, Connection conn) throws SQLException, CertificateException {
-        final PreparedStatement ps = conn.prepareStatement(getDerOfDomainSt);
+        try (final PreparedStatement ps = conn.prepareStatement(getDerOfDomainSt)) {
+            ps.setString(1, domainName);
+            final ResultSet rs = ps.executeQuery();
+            final ArrayList<X509Certificate> certs = new ArrayList<>();
+            while (rs.next()) {
+                final byte[] der = rs.getBytes("Der");
+                try (final ByteArrayInputStream byteInput = new ByteArrayInputStream(der)) {
+                    certs.add((X509Certificate) certFactory.generateCertificate(byteInput));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            final var ret = new X509Certificate[certs.size()];
+            return certs.toArray(ret);
+        }
+    }
+
+    public static String[] getDomainFromDB(Connection conn) throws SQLException {
+        try (final var ps = conn.prepareStatement(getDomainSt);
+             final var ps1 = conn.prepareStatement(getDomainNumSt)) {
+            final int numDomains = ps1.executeQuery().getInt(1);
+            final var rs = ps.executeQuery();
+            final var domains = new String[numDomains];
+            for (int i = 0; rs.next(); ++i) {
+                domains[i] = rs.getString(1);
+            }
+            return domains;
+        }
+    }
+
+    public static String getErrFromDB(String domainName, Connection conn) throws SQLException {
+        final PreparedStatement ps = conn.prepareStatement(getErrOfDomainSt);
         ps.setString(1, domainName);
         final ResultSet rs = ps.executeQuery();
-        final ArrayList<X509Certificate> certs = new ArrayList<>();
-        while (rs.next()) {
-            final byte[] der = rs.getBytes("Der");
-            try (final ByteArrayInputStream byteInput = new ByteArrayInputStream(der)) {
-                certs.add((X509Certificate) certFactory.generateCertificate(byteInput));
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+        String ret = null;
+        if (rs.next()) {
+            ret = rs.getString(1);
         }
-        final var ret = new X509Certificate[certs.size()];
-        return certs.toArray(ret);
+        return ret;
     }
 }
