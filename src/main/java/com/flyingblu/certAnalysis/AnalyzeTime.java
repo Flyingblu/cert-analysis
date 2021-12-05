@@ -11,7 +11,9 @@ import org.apache.commons.cli.ParseException;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.security.cert.CertificateException;
+import java.security.cert.CertificateExpiredException;
 import java.security.cert.CertificateFactory;
+import java.security.cert.CertificateNotYetValidException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -40,7 +42,7 @@ public class AnalyzeTime {
             CsvWriter csvWriter=new CsvWriter(FilePath, ',', Charset.forName("GBK"));
             try {
 
-                String[] headers = {"domain","StartTime","EndTime","ValidTime"};
+                String[] headers = {"domain","StartTime","EndTime","ValidTime","isValid"};
                 csvWriter.writeRecord(headers);
 
                 Iterator iterator=domains.iterator();
@@ -51,12 +53,20 @@ public class AnalyzeTime {
                         Date StartTime = certs[0].getNotBefore();
                         Date EndTime = certs[0].getNotAfter();
                         long validTime = (EndTime.getTime()- StartTime.getTime())/(24*60*60*1000);
+                        String isValid="True";
+
+                        try{
+                            certs[0].checkValidity();
+                        }catch (CertificateExpiredException e){
+                            isValid = e.getMessage();
+                        }
 
                         List content=new ArrayList<String>();
                         content.add(domain);
                         content.add(StartTime.toString());
                         content.add(EndTime.toString());
                         content.add(String.valueOf(validTime));
+                        content.add(isValid);
                         csvWriter.writeRecord((String[]) content.toArray(new String[0]));
                         pb.step();
                     }
