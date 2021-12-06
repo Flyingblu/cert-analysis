@@ -1,7 +1,6 @@
 package com.flyingblu.certAnalysis.cert;
 
 import com.flyingblu.certAnalysis.CertUtil;
-import com.flyingblu.certAnalysis.Util;
 import me.tongfei.progressbar.ProgressBar;
 import me.tongfei.progressbar.ProgressBarBuilder;
 
@@ -10,7 +9,6 @@ import java.security.cert.X509Certificate;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.Deque;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
