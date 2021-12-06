@@ -2,3 +2,4 @@ cert.sqlite
 .idea/
 target/
 .DS_Store
+TrustedCA/

@@ -7,15 +7,20 @@ import java.sql.SQLException;
 import java.util.regex.MatchResult;
 import java.util.regex.Pattern;
 
-// Objective: Analyze if the certificate can be used on the domain.
-// Method: First check the common name in subject destinguished name, if not match
-// then check the list of SAN to find a match. If still no match, the certificate
-// is not valid for the given domain. Note that there are two types of domain names
-// that should use different checking policies. The traditional domain names (only
-// contain ASCII characters) and the internationalized domain names.
-// For the traditional domain names, the domain name should be compared in case-
-// insensitive manner.
-// Limit: this algorithm only looks for exact matches, wildcards are not considered.
+/**
+ * Objective: Analyze if the certificate can be used on the domain.
+ * Method: First check the common name in subject destinguished name, if not match
+ * then check the list of SAN to find a match. If still no match, the certificate
+ * is not valid for the given domain. Note that there are two types of domain names
+ * that should use different checking policies. The traditional domain names (only
+ * contain ASCII characters) and the internationalized domain names.
+ * For the traditional domain names, the domain name should be compared in case-
+ * insensitive manner.
+ * For the internationalized domain names, any unicode characters (U-label) must be
+ * converted to A-label before doing the matching. The matching is also in case-
+ * insensitive manner.
+ * Limit: this algorithm only looks for exact matches, wildcards are not considered.
+ */
 public class AnalyzeDomainMatch {
     public static void main(String[] args) throws SQLException, CertificateParsingException {
         final String DB_PATH = "cert.sqlite";
@@ -43,7 +48,6 @@ public class AnalyzeDomainMatch {
             if (matched.length == 1 && (certs.domain.equalsIgnoreCase(matched[0].group(1))
                     || matched[0].group(1).equalsIgnoreCase("*.com")))
                 continue;
-            System.out.println(certs.domain);
             ++numMismatch;
         }
         System.out.println("Number of mismatch domains: " + numMismatch);
