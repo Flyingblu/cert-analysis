@@ -16,7 +16,7 @@ public class AnalyzeDomainMatch {
     public static void main(String[] args) throws SQLException, CertificateParsingException {
         final String DB_PATH = "cert.sqlite";
 
-        int numNotMatch = 0;
+        int numMismatch = 0;
         final var regex = Pattern.compile("CN=([^,]*)");
         for (var certs : new DBCertFetcher(DB_PATH)) {
             boolean domainMatched = false;
@@ -38,8 +38,9 @@ public class AnalyzeDomainMatch {
             // Skip some certs that does not contain CN
             if (matched.length == 1 && matched[0].equals(certs.domain))
                 continue;
-            ++numNotMatch;
+            System.out.println(certs.domain);
+            ++numMismatch;
         }
-        System.out.println(numNotMatch);
+        System.out.println("Number of mismatch domains: " + numMismatch);
     }
 }

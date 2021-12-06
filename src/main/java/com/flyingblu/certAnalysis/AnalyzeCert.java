@@ -9,6 +9,7 @@ public class AnalyzeCert {
     public static void main(String[] args) throws SQLException {
         final String DB_PATH = "cert.sqlite";
 
+        // Sample task. Copy and paste this file to create your own.
         final var version = new HashMap<String, Integer>();
         for (var certs : new DBCertFetcher(DB_PATH)) {
             for (var cert : certs.certs)
