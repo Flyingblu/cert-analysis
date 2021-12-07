@@ -4,11 +4,16 @@ import com.flyingblu.certAnalysis.utils.CertUtil;
 import me.tongfei.progressbar.ProgressBar;
 import me.tongfei.progressbar.ProgressBarBuilder;
 
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.LineNumberReader;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
@@ -52,6 +57,15 @@ public class DBCertFetcher implements Iterable<Cert> {
     public DBCertFetcher(String dbPath) throws SQLException {
         conn = DriverManager.getConnection("jdbc:sqlite:" + dbPath);
         domains = CertUtil.getDomainListFromDB(conn);
+    }
+
+    public DBCertFetcher(String dbPath, String trustDomainPath) throws SQLException, IOException {
+        conn = DriverManager.getConnection("jdbc:sqlite:" + dbPath);
+        final var domains = new ArrayList<String>();
+        try (final var domainReader = new LineNumberReader(new FileReader(trustDomainPath))) {
+            domainReader.lines().forEach(domains::add);
+        }
+        this.domains = domains.toArray(String[]::new);
     }
 
 

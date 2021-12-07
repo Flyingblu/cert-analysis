@@ -30,6 +30,12 @@
             <artifactId>bcprov-jdk15on</artifactId>
             <version>1.70</version>
         </dependency>
+        <dependency>
+            <groupId>org.bouncycastle</groupId>
+            <artifactId>bcpkix-jdk15on</artifactId>
+            <version>1.70</version>
+        </dependency>
+
 
         <dependency>
             <groupId>net.sourceforge.javacsv</groupId>
@@ -59,7 +65,7 @@
                             <archive>
                                 <manifest>
                                     <mainClass>
-                                        com.flyingblu.certAnalysis.certAnalyzer.AnalyzeCertChain
+                                        com.flyingblu.certAnalysis.certAnalyzer.AnalyzeRevoke
                                     </mainClass>
                                 </manifest>
                             </archive>

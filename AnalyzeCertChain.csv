@@ -1,6 +1,6 @@
 Error,Count
-java.security.cert.CertPathValidatorException: validity check failed,1545
-PASS,149276
+java.security.cert.CertPathValidatorException: validity check failed,1392
+TRUSTPASS,149429
 java.security.cert.CertPathValidatorException: Path does not chain with any of the trust anchors,2571
 java.security.cert.CertPathValidatorException: CA key usage check failed: keyCertSign bit is not set,779
 java.security.cert.CertPathValidatorException: subject/issuer name chaining check failed,1571
