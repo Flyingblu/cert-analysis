@@ -17,13 +17,15 @@ import java.util.*;
  * revocation (can also divided into two categories to analyze).
  * Method: cache the CRL list for better efficiency.
  * Reference:
- * Difference between CRL and OCSP: https://docs.microfocus.com/NNMi/10.30/Content/Administer/NNMi_Deployment/Advanced_Configurations/Cert_Validation_CRL_and_OCSP.htm
+ * Difference between CRL and OCSP:
+ * https://docs.microfocus.com/NNMi/10.30/Content/Administer/NNMi_Deployment/Advanced_Configurations/Cert_Validation_CRL_and_OCSP.htm
  * Steps:
  * 1. Cache all trusted cert domains into a file
  * 2. modify cert fetcher to only get trusted certs
  * 3. Analyze the presence of CRL and OCSP extensions in non-root certificates
  * 4. Use CRL to check revocation status of non-root certificates
  * 5. Analyze the revocation status of non-root certificates
+ * Result: saved in CSV, the program consumed around 10gigs of memory
  */
 public class AnalyzeRevoke {
     public static void main(String[] args) throws SQLException, IOException, CertificateException, CRLException {
@@ -80,7 +82,7 @@ public class AnalyzeRevoke {
         }
 
         try (final var sr = new PrintWriter("server-revoked.txt");
-             final var ir = new PrintWriter("inter-revoked.txt");) {
+                final var ir = new PrintWriter("inter-revoked.txt");) {
             serverRevokeDomains.forEach(sr::println);
             interRevokeDomains.forEach(ir::println);
         }
