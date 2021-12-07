@@ -1,4 +1,4 @@
-package com.flyingblu.certAnalysis;
+package com.flyingblu.certAnalysis.CSVanalyze;
 
 import com.csvreader.CsvReader;
 
