@@ -51,7 +51,7 @@ public class DBCertFetcher implements Iterable<Cert> {
 
     public DBCertFetcher(String dbPath) throws SQLException {
         conn = DriverManager.getConnection("jdbc:sqlite:" + dbPath);
-        domains = CertUtil.getDomainFromDB(conn);
+        domains = CertUtil.getDomainListFromDB(conn);
     }
 
 

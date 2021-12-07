@@ -9,6 +9,7 @@ import java.security.cert.CertificateFactory;
 import java.util.ArrayList;
 
 public class keyStoreUtil {
+
     public static void createKeyStoreFromDir(String certDir, String saveName, String passwd) throws KeyStoreException, IOException, NoSuchAlgorithmException, CertificateException {
         KeyStore ks = null;
         try {
@@ -52,5 +53,18 @@ public class keyStoreUtil {
         try (final FileOutputStream fos = new FileOutputStream(saveName)) {
             ks.store(fos, passwd.toCharArray());
         }
+    }
+
+    public static KeyStore loadKeyStore(String filePath, String passwd) throws IOException, CertificateException, NoSuchAlgorithmException {
+        KeyStore ks = null;
+        try {
+            ks = KeyStore.getInstance("PKCS12");
+        } catch (KeyStoreException e) {
+            e.printStackTrace();
+        }
+        try (final FileInputStream fin = new FileInputStream(filePath)) {
+            ks.load(fin, passwd.toCharArray());
+        }
+        return ks;
     }
 }

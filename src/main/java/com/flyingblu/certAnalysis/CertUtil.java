@@ -9,15 +9,13 @@ import java.io.IOException;
 import java.net.URL;
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
-import java.security.cert.Certificate;
-import java.security.cert.CertificateException;
-import java.security.cert.CertificateFactory;
-import java.security.cert.X509Certificate;
+import java.security.cert.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class CertUtil {
 
@@ -90,7 +88,11 @@ public class CertUtil {
         }
     }
 
-    public static String[] getDomainFromDB(Connection conn) throws SQLException {
+    public static CertPath getCertPathFromArray(X509Certificate[] certs) throws CertificateException {
+        return certFactory.generateCertPath(Arrays.asList(certs));
+    }
+
+    public static String[] getDomainListFromDB(Connection conn) throws SQLException {
         try (final var ps = conn.prepareStatement(getDomainSt);
              final var ps1 = conn.prepareStatement(getDomainNumSt)) {
             final int numDomains = ps1.executeQuery().getInt(1);
