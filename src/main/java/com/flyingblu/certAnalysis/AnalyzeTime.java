@@ -13,7 +13,6 @@ import java.nio.charset.Charset;
 import java.security.cert.CertificateException;
 import java.security.cert.CertificateExpiredException;
 import java.security.cert.CertificateFactory;
-import java.security.cert.CertificateNotYetValidException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;

@@ -26,7 +26,7 @@ public class AnalyzeRootCAkey {
         File[] files=dir.listFiles();
 
         CertificateFactory cf = CertificateFactory.getInstance("X.509");
-        try{
+        try {
             CsvWriter csvWriter=new CsvWriter(FILE_PATH, ',', Charset.forName("GBK"));
             String[] headers={"Authority","key_type","bit_count"};
             csvWriter.writeRecord(headers);
@@ -52,7 +52,9 @@ public class AnalyzeRootCAkey {
                 content.add(key_type);
                 content.add(bit_count);
                 csvWriter.writeRecord((String[]) content.toArray(new String[0]));
+
             }
+            csvWriter.close();
         }catch (Exception e){
             e.printStackTrace();
         }
