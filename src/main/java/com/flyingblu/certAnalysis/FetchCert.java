@@ -1,5 +1,6 @@
 package com.flyingblu.certAnalysis;
 
+import com.flyingblu.certAnalysis.utils.Util;
 import me.tongfei.progressbar.ProgressBar;
 import me.tongfei.progressbar.ProgressBarBuilder;
 import org.apache.commons.cli.CommandLine;

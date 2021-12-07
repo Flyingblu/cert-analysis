@@ -1,4 +1,4 @@
-package com.flyingblu.certAnalysis;
+package com.flyingblu.certAnalysis.certAnalyzer;
 
 
 import com.csvreader.CsvWriter;

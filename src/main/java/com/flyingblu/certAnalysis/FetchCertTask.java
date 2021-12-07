@@ -1,5 +1,6 @@
 package com.flyingblu.certAnalysis;
 
+import com.flyingblu.certAnalysis.utils.CertUtil;
 import me.tongfei.progressbar.ProgressBar;
 
 import java.io.IOException;

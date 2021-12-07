@@ -1,6 +1,8 @@
-package com.flyingblu.certAnalysis;
+package com.flyingblu.certAnalysis.certAnalyzer;
 
+import com.flyingblu.certAnalysis.utils.CertUtil;
 import com.flyingblu.certAnalysis.cert.DBCertFetcher;
+import com.flyingblu.certAnalysis.utils.keyStoreUtil;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVPrinter;
 

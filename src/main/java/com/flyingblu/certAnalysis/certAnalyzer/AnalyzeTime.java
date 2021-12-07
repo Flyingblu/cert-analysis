@@ -1,6 +1,8 @@
-package com.flyingblu.certAnalysis;
+package com.flyingblu.certAnalysis.certAnalyzer;
 
 import com.csvreader.CsvWriter;
+import com.flyingblu.certAnalysis.utils.CertUtil;
+import com.flyingblu.certAnalysis.utils.Util;
 import me.tongfei.progressbar.ProgressBar;
 import me.tongfei.progressbar.ProgressBarBuilder;
 import org.apache.commons.cli.CommandLine;
@@ -46,7 +48,7 @@ public class AnalyzeTime {
 
                 Iterator iterator=domains.iterator();
                 for (var domain:domains){
-                    var certs=CertUtil.getCertChainFromDB(domain,conn);
+                    var certs= CertUtil.getCertChainFromDB(domain,conn);
                     if(certs.length!=0){
 
                         Date StartTime = certs[0].getNotBefore();

@@ -59,7 +59,7 @@
                             <archive>
                                 <manifest>
                                     <mainClass>
-                                        com.flyingblu.certAnalysis.AnalyzeCertChain
+                                        com.flyingblu.certAnalysis.certAnalyzer.AnalyzeCertChain
                                     </mainClass>
                                 </manifest>
                             </archive>

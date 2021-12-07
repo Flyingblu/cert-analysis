@@ -1,4 +1,4 @@
-package com.flyingblu.certAnalysis;
+package com.flyingblu.certAnalysis.utils;
 
 import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLContext;

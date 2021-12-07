@@ -1,4 +1,4 @@
-package com.flyingblu.certAnalysis;
+package com.flyingblu.certAnalysis.utils;
 
 import java.io.*;
 import java.security.KeyStore;
