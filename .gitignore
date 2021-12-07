@@ -3,3 +3,4 @@ cert.sqlite
 target/
 .DS_Store
 TrustedCA/
+cert-analysis.iml
