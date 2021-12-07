@@ -60,7 +60,7 @@ public class TimeCSVanalyze {
             System.out.println("percentage is "+percentage+"%");
             System.out.println("============================");
 
-            System.out.println(Between365and730Days+" lbetween 365 and 730");
+            System.out.println(Between365and730Days+" between 365 and 730");
             percentage=(double) Between365and730Days/(double) TotalRecord*100;
             System.out.println("percentage is "+percentage+"%");
             System.out.println("============================");

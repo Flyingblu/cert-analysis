@@ -22,6 +22,10 @@ import java.util.*;
 
 public class AnalyzeTime {
     public static void main(String[] args) throws ParseException, SQLException, CertificateException {
+
+        Date date = new Date();
+        date.setTime(1638623220000L);
+
         final Options options = new Options();
         options.addOption("n", "number", true, "Number of domains to analyze, default=200000")
                 .addOption("p", "path", true, "Load path of the SQLite DB, default=cert.sqlite");
@@ -57,7 +61,7 @@ public class AnalyzeTime {
                         String isValid="True";
 
                         try{
-                            certs[0].checkValidity();
+                            certs[0].checkValidity(date);
                         }catch (CertificateExpiredException e){
                             isValid = e.getMessage();
                         }
