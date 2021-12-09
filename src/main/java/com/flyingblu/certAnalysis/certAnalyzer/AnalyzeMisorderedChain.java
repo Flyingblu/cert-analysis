@@ -12,13 +12,13 @@ import java.util.List;
 
 public class AnalyzeMisorderedChain {
 
-    private static final String DB_PATH = "cert.sqlite";
+    private static final String DB_PATH = "C:\\cert.sqlite";
     private static final String FILE_PATH="./AnalyzeMisorderedChain.csv";
 
     public static void main(String[] args) {
         try{
             CsvWriter csvWriter=new CsvWriter(FILE_PATH, ',', Charset.forName("GBK"));
-            for (var certs : new DBCertFetcher(DB_PATH)) {
+            for (var certs : new DBCertFetcher(DB_PATH,"trusted-domains.txt")) {
                 if(certs.certs.length>0){
                     int index=0;
                     X509Certificate[] chain=certs.certs;

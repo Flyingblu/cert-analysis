@@ -10,8 +10,8 @@ import java.util.Set;
 
 public class KeyCSVanalyze {
 
-    private  static final String filePath="./AnalyzeRootAuthorityKey.csv";
-    private  static final String[] RSAKeys={"1024","2024","2048","3072","3096","3112","4096","8112"};
+    private  static final String filePath="./AnalyzeKey.csv";
+    private  static final String[] RSAKeys={"1024","2024","2048","3072","3096","3112","4096","8192"};
     private  static final String[] ECKeys={"256","384"};
 
     /**
