@@ -1,0 +1,43 @@
+issuers,number
+R3,47277
+ISRG Root X1,46847
+DST Root CA X3,41608
+Baltimore CyberTrust Root,38324
+Cloudflare Inc ECC CA-3,38022
+others,22720
+AAA Certificate Services,20626
+DigiCert Global Root CA,17935
+USERTrust RSA Certification Authority,16873
+Starfield Class 2 Certification Authority,10702
+Starfield Services Root Certificate Authority - G2,10377
+Amazon,10377
+Amazon Root CA 1,10377
+Sectigo RSA Domain Validation Secure Server CA,10352
+Go Daddy Root Certificate Authority - G2,6772
+Go Daddy Secure Certificate Authority - G2,6616
+Go Daddy Class 2 Certification Authority,6599
+COMODO RSA Certification Authority,5509
+"""cPanel",5126
+GlobalSign,4853
+DigiCert TLS RSA SHA256 2020 CA1,3989
+GlobalSign Root CA,3509
+DigiCert High Assurance EV Root CA,2978
+Entrust Root Certification Authority - G2,2339
+DigiCert SHA2 Secure Server CA,2168
+RapidSSL TLS DV RSA Mixed SHA256 2020 CA-1,2164
+GeoTrust RSA CA 2018,1827
+GlobalSign RSA OV SSL CA 2018,1804
+Sectigo RSA Organization Validation Secure Server CA,1763
+Entrust Certification Authority - L1K,1409
+GTS Root R1,1321
+DigiCert SHA2 Extended Validation Server CA,1315
+Starfield Root Certificate Authority - G2,1283
+Thawte RSA CA 2018,1278
+Certum Trusted Network CA,1278
+AlphaSSL CA - SHA256 - G2,1240
+Encryption Everywhere DV TLS CA - G1,1239
+DigiCert Global Root G2,1210
+USERTrust ECC Certification Authority,1166
+Certum CA,1091
+Starfield Secure Certificate Authority - G2,1048
+ZeroSSL ECC Domain Secure Site CA,1017
