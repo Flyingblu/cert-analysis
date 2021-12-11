@@ -65,7 +65,7 @@
                             <archive>
                                 <manifest>
                                     <mainClass>
-                                        com.flyingblu.certAnalysis.certAnalyzer.AnalyzeRevoke
+                                        com.flyingblu.certAnalysis.certAnalyzer.AnalyzeCO
                                     </mainClass>
                                 </manifest>
                             </archive>

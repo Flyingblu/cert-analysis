@@ -51,6 +51,7 @@ public class AnalyzeRevoke {
                 // Checks for OCSP
                 String ocspURI = CertRevocationChecker.getOCSPURI(cert);
 
+                // Use CRL to check revocation status
                 if (crc.checkCRLRevocation(crlURI, cert)) {
                     if (lvl == 0) {
                         serverRevokeDomains.add(certs.domain);
